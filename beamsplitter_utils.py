@@ -15,6 +15,12 @@ material_names = ['LDPE', 'Acrylic 31', 'Spectrosil', 'Pyrex', 'HDPE', 'Macor', 
 
 material_dict = dict(zip(material_names, material_indices))
 
+
+# function to print the available material names
+def available_materials():
+    for name in material_names:
+        print(name)
+
 # s-pol at oblique incidence; for a slab in air
 def oblique_slab_reflection_s(n, eps, h, nu, theta_1):
     k = 2*np.pi*nu/c # wavenumber in vacuum
@@ -119,7 +125,7 @@ def oblique_slab_transmission_p(n, eps, h, nu, theta_1):
     
     return T_p
 
-def beamsplitter_reflectance(n, eps, h, nus, theta, material=None):
+def beamsplitter_reflectance(nus, h, theta, material=None, n=None, eps=None):
     '''
     n = real part of refractive index
     eps = real part of complex permittivity
@@ -134,6 +140,8 @@ def beamsplitter_reflectance(n, eps, h, nus, theta, material=None):
     '''
     if material is not None:
         n, eps = material_dict[material]
+    elif n is None or eps is None:
+        raise ValueError("You must provide both n and eps when material is not specified.")
     
     theta_rad = np.deg2rad(theta)
     R_p = oblique_slab_reflection_p(n, eps, h, nus, theta_rad)
@@ -141,7 +149,7 @@ def beamsplitter_reflectance(n, eps, h, nus, theta, material=None):
     R_avg = 0.5*(R_p + R_s)
     return R_p, R_s, R_avg
 
-def beamsplitter_transmittance(n, eps, h, nus, theta, material=None):
+def beamsplitter_transmittance(nus, h, theta, material=None, n=None, eps=None):
     '''
     n = real part of refractive index
     eps = real part of complex permittivity
@@ -156,6 +164,8 @@ def beamsplitter_transmittance(n, eps, h, nus, theta, material=None):
     '''
     if material is not None:
         n, eps = material_dict[material]
+    elif n is None or eps is None:
+        raise ValueError("You must provide both n and eps when material is not specified.")
     
     theta_rad = np.deg2rad(theta)
     T_p = oblique_slab_transmission_p(n, eps, h, nus, theta_rad)
