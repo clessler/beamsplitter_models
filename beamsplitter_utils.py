@@ -41,7 +41,7 @@ def oblique_slab_reflection_s(n, eps, h, nu, theta_1):
 def oblique_slab_reflection_p(n, eps, h, nu, theta_1):
     k = 2*np.pi*nu/c # wavenumber in vacuum
     N = n + 1j*np.emath.sqrt(n**2 -eps) # complex refractive index
-    eps_2 = eps -1j*2*n*np.emath.sqrt(n**2 -eps) # complex permittivity
+    eps_2 = eps +1j*2*n*np.emath.sqrt(n**2 -eps) # complex permittivity = N^2
     eps_1 = 1
     eps_3 = 1 # air on both sides
     k1z = k*np.cos(theta_1)
@@ -106,7 +106,7 @@ def oblique_slab_transmission_p(n, eps, h, nu, theta_1):
     """
     k = 2 * np.pi * nu / c  # wavenumber in vacuum
     N = n + 1j * np.emath.sqrt(n**2 - eps)  # complex refractive index
-    eps_2 = eps - 1j * 2 * n * np.emath.sqrt(n**2 - eps)  # complex permittivity of slab
+    eps_2 = eps + 1j * 2 * n * np.emath.sqrt(n**2 - eps)  # complex permittivity of slab = N^2
     eps_1 = 1  # air
     eps_3 = 1  # air
     
